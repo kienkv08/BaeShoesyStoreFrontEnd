@@ -1,0 +1,4 @@
+export const Config = {
+  REACT_APP_API_URL_BACKEND: process.env.REACT_APP_API_URL_BACKEND,
+  REACT_APP_CLIENT_SECRET_KEY: process.env.REACT_APP_CLIENT_SECRET_KEY,
+};

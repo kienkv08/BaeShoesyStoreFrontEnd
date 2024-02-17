@@ -1,0 +1,19 @@
+{
+  "homePage": {
+    "notifyMe": "Notify Me",
+    "newRelease": "New Release",
+    "bestSeller": "Best Seller",
+    "readPreview": "Read Preview"
+  },
+  "common": {
+    "signUp": "Sign Up",
+    "signIn": "Sign in",
+    "userName": "User name",
+    "email": "Email",
+    "yourEmail": "Your email",
+    "password": "Pasword",
+    "rePassword": "Re-Password",
+    "acceptOurTerm": "Accept our terms condition",
+    "phone": "Phone number"
+  }
+}
