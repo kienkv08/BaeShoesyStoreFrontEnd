@@ -1,0 +1,5 @@
+.hover-card:hover {
+  transform: scale(1.1); /* Adjust the scaling factor as needed */
+  transition: transform 0.3s ease; /* Add a smooth transition effect */
+  cursor: pointer;
+}

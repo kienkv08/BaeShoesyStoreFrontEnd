@@ -6,7 +6,7 @@ const DefaultLayout = ({ children }) => {
   return (
     <div className="wrapper">
       <Header />
-      <div className="container">{children}</div>
+      <div className="min-h-[80vh]">{children}</div>
       <Footer />
     </div>
   );
