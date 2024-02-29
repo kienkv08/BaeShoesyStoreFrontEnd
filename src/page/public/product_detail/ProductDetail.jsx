@@ -1,6 +1,8 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import CarouselComponent from "../../../components/common/carousel/carousel";
+import Button from "../../../components/common/button/button.component";
+import { Star } from "@material-ui/icons";
 
 const ProductDetail = () => {
   const carousel = [
@@ -32,6 +34,15 @@ const ProductDetail = () => {
                   src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
                   className="rounded-full h-15 w-15"
                 />
+                <span>Kien kieu hehe</span>
+                <Button>See Info</Button>
+                <span>
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                  <Star />
+                </span>
               </div>
             </div>
           </div>
