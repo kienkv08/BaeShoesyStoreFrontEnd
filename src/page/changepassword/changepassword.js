@@ -13,15 +13,15 @@ const ChangePassword = (id) => {
         <Row>
             <Col md={12} className='padding-topbot-20px'>   
                 Old Password <span className='color-red'>*</span>
-                <FormControl type='text' placeholder='Old password'/>
+                <FormControl type='text' placeholder='Old password' required/>
             </Col>
             <Col md={12} className='padding-topbot-20px'>    
                 New Password<span className='color-red'>*</span>
-                <FormControl type='text' placeholder='New Password'/>
+                <FormControl type='text' placeholder='New Password' required/>
             </Col>
             <Col md={12} className='padding-topbot-20px'>    
-                Verify New Password
-                <FormControl type='text' placeholder='Verify New Password'/>
+                Verify New Password<span className='color-red'>*</span>
+                <FormControl type='text' placeholder='Verify New Password' required/>
             </Col>
             <Col md={12} className='padding-topbot-20px'>    
                         <Button>
