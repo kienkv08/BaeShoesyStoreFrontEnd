@@ -13,6 +13,9 @@ import AdminLayout from "../components/layout/AdminLayout/admin.layout";
 import UserProfile from "../page/userprofile/userprofile";
 import Auction from "../page/public/auction/Auction";
 import OrderHistory from "../page/public/auction/OrderHistory";
+import About from "../page/public/aboutUS/AboutUsPage";
+import Contact from "../page/public/contactUs/ContactUsPage";
+import Policy from "../page/public/policyPage/PolicyPage";
 const publicRoutes = [
   { path: "/register", component: Register, layout: DefaultLayout },
   { path: "/demo", component: Demo, layout: DefaultLayout },
@@ -34,5 +37,8 @@ const publicRoutes = [
   { path: "/userprofile", component: UserProfile, layout: DefaultLayout },
   { path: "/auction", component: Auction, layout: Auction },
   { path: "/orderhistory", component: OrderHistory, layout: OrderHistory },
+  { path: "/About", component: About, layout: DefaultLayout },
+  { path: "/Contact", component: Contact, layout: DefaultLayout },
+  { path: "/Policy", component: Policy, layout: DefaultLayout },
 ];
 export { publicRoutes };
