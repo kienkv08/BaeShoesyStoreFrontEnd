@@ -11,6 +11,8 @@ import AdminPostManagement from "../page/admin/managepost/ManagePosts";
 import AdminAccountManagement from "../page/admin/manageaccount/ManageAccount";
 import AdminLayout from "../components/layout/AdminLayout/admin.layout";
 import UserProfile from "../page/userprofile/userprofile";
+import Auction from "../page/public/auction/Auction";
+import OrderHistory from "../page/public/auction/OrderHistory";
 const publicRoutes = [
   { path: "/register", component: Register, layout: DefaultLayout },
   { path: "/demo", component: Demo, layout: DefaultLayout },
@@ -30,5 +32,7 @@ const publicRoutes = [
     layout: AdminLayout,
   },
   { path: "/userprofile", component: UserProfile, layout: DefaultLayout },
+  { path: "/auction", component: Auction, layout: Auction },
+  { path: "/orderhistory", component: OrderHistory, layout: OrderHistory },
 ];
 export { publicRoutes };
