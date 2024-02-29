@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Col, Container, Form, FormControl, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, FormControl, Row } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import './changepassword.css'
 
@@ -22,6 +22,11 @@ const ChangePassword = (id) => {
             <Col md={12} className='padding-topbot-20px'>    
                 Verify New Password
                 <FormControl type='text' placeholder='Verify New Password'/>
+            </Col>
+            <Col md={12} className='padding-topbot-20px'>    
+                        <Button>
+                            Save
+                        </Button>
             </Col>
         </Row>
     </Form>
