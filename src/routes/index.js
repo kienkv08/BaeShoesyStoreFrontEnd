@@ -6,7 +6,7 @@ import Home from "../page/public/home/home";
 import PostPage from "../page/public/post/PostPage";
 import ProductDetail from "../page/public/product_detail/ProductDetail";
 import About from "../page/public/aboutUS/AboutUsPage";
-import Contact from "../page/public/contactUs/ContactUsPage";
+import Contact from "../page/public/contactUS/ContactUsPage";
 import Policy from "../page/public/policyPage/PolicyPage";
 
 const publicRoutes = [
