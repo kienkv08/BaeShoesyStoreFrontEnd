@@ -199,7 +199,7 @@ class _HttpService {
   }
 
   handleResponse(ajaxResponse) {
-    return ajaxResponse.response.result.data;
+    return ajaxResponse.response.result;
   }
 
   resolveUri(uri) {
@@ -239,11 +239,7 @@ class _HttpService {
   }
 
   getAccessToken() {
-    // return (
-    //   getCookie(localStorageKeys.USER_TOKEN) ||
-    //   StorageService.get(localStorageKeys.USER_TOKEN) ||
-    //   StorageService.getSession(localStorageKeys.USER_TOKEN)
-    // );
+    return localStorage.getItem("accessToken");
   }
 }
 

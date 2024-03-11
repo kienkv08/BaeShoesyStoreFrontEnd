@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const DropdownUser = ({ user }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const navigate = useNavigate();
   //   useEffect(() => {
   //     const clickHandler = ({ target }: MouseEvent) => {
   //       if (!dropdown.current) return;
@@ -25,7 +26,9 @@ export const DropdownUser = ({ user }) => {
   //   });
   //   if (!user) return;
   const handleLogout = () => {
-    //   LogoutService(dispatch, navigate);
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    navigate("/login");
   };
 
   return (
@@ -38,13 +41,13 @@ export const DropdownUser = ({ user }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Admin 1
+            {user.username}
           </span>
         </span>
         <span className="inline-block h-12 w-12 overflow-hidden rounded-full">
           <img
             className="h-full w-full object-cover object-center rounded-full"
-            src="hh"
+            src={user.avatar}
             alt="User"
           />
         </span>

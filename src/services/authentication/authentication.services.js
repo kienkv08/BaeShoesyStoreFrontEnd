@@ -4,4 +4,8 @@ const register = async (data, navigate) => {
   return HttpService.post("/auth/register", { body: { ...data } });
 };
 
-export { register };
+const login = async (data, navigate) => {
+  return HttpService.post("/auth/login", { body: { ...data } });
+};
+
+export { register, login };

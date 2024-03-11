@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import useObservable from "../../../core/hooks/useObservable.hooks";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../../services/authentication/authentication.services";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -18,10 +19,18 @@ const Login = () => {
     if (!password) {
       toast("Password is require!");
     }
-    const user = {
+    const data = {
       username: username,
       password: password,
     };
+    subscribeOnce(login(data), (res) => {
+      if (!res) return;
+      console.log(res);
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("user", JSON.stringify(res.user));
+      toast("Login successfully!");
+      navigate("/");
+    });
   };
 
   return (

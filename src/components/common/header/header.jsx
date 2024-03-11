@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import DropdownUser from "../dropdown_user/dropdown.user";
+import { Button } from "bootstrap";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [flyer, setFlyer] = useState(false);
   const [flyerTwo, setFlyerTwo] = useState(false);
+  let user = localStorage.getItem("user");
+  if (user) user = JSON.parse(user);
   return (
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -41,10 +45,10 @@ const Header = () => {
           </div>
           <nav className="hidden md:flex space-x-10">
             <Link
-              to="/store"
+              to="/post"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Store
+              Post
             </Link>
             <div className="relative">
               <button
@@ -112,12 +116,28 @@ const Header = () => {
             </Link>
             <div className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
               <Link
-                to="/dashboard/book-manage"
+                to="/admin"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Dashboard
               </Link>
             </div>
+            {user ? (
+              <>
+                <div className="whitespace-nowrap text-base font-medium hover:text-gray-900">
+                  <button className="w-full px-4 text-lg font-semibold text-white transition-colors duration-300 bg-blue-500 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-blue-200 focus:ring-4">
+                    <Link
+                      to="/posts/create"
+                      className="text-base font-medium text-white hover:text-gray-900"
+                    >
+                      Create Post
+                    </Link>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
             {/* <div className="relative">
               <button
                 onMouseEnter={() => setShowCart(true)}
@@ -160,9 +180,9 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            {/* {user ? (
+            {user ? (
               <>
-                <DropdownUser />
+                <DropdownUser user={user} />
               </>
             ) : (
               <>
@@ -170,28 +190,16 @@ const Header = () => {
                   to="/login"
                   className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  {t("pageContent.login")}
+                  Login
                 </Link>
                 <Link
                   to="/register"
                   className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                 >
-                  {t("pageContent.register")}
+                  Register
                 </Link>
               </>
-            )} */}
-            <Link
-              to="/login"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              Register
-            </Link>
+            )}
           </div>
         </div>
       </div>

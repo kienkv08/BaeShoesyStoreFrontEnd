@@ -171,8 +171,10 @@ import { useTranslation } from "react-i18next";
 import useObservable from "../../../core/hooks/useObservable.hooks";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../../services/authentication/authentication.services";
 
 const Register = () => {
+  const { subscribeOnce } = useObservable();
   const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -202,12 +204,17 @@ const Register = () => {
       toast.warning("Re-Password is not match with password!");
       return;
     }
-    const user = {
+    const data = {
       username: username,
       password: password,
-      rePassword: rePassword,
       email: email,
     };
+    subscribeOnce(register(data), (res) => {
+      console.log(res);
+      if (!res) return;
+      toast("Register successfully!");
+      navigate("/login");
+    });
   };
   return (
     <div className="flex items-center min-h-screen p-4 bg-gray-100 lg:justify-center vw-full">

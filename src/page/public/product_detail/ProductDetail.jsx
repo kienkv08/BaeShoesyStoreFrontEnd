@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import CarouselComponent from "../../../components/common/carousel/carousel";
 import Button from "../../../components/common/button/button.component";
 import { Star } from "@material-ui/icons";
+import { useParams } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const ProductDetail = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState();
   const carousel = [
     {
       img: "https://pubcdn.ivymoda.com/files/news/2023/08/06/bf8a7d8755e486feebecda9c6913f7eb.png",
@@ -28,21 +33,9 @@ const ProductDetail = () => {
                 />
               </div>
             </div>
-            <div className="w-[35%] mx-3">
-              <div className="relative">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png"
-                  className="rounded-full h-15 w-15"
-                />
-                <span>Kien kieu hehe</span>
-                <Button>See Info</Button>
-                <span>
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                </span>
+            <div className="w-[35%] mx-3 text-left">
+              <div>
+                <span className="text-pretty text-2xl">HJello</span>
               </div>
             </div>
           </div>
