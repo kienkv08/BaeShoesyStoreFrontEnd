@@ -18,6 +18,8 @@ import Policy from "../page/public/policyPage/PolicyPage";
 import CreateProduct from "../page/manage/create_post/CreateProduct";
 import UserProfilePage from "../page/authentication/profile/UserProfilePage";
 import Success from "../page/authentication/payment/Success";
+import Profit from "../page/authentication/profit/Profit";
+import Transaction from "../page/authentication/profit/Transaction";
 // import AboutUs from "../page/public/aboutUS/AboutUsPage";
 const publicRoutes = [
   { path: "/register", component: Register, layout: DefaultLayout },
@@ -50,5 +52,8 @@ const publicRoutes = [
   { path: "/posts/create", component: CreateProduct, layout: DefaultLayout },
   { path: "/users/profile", component: UserProfilePage, layout: DefaultLayout },
   { path: "/payment/success", component: Success, layout: DefaultLayout },
+  //profit
+  { path: "/user/profit", component: Profit, layout: DefaultLayout },
+  { path: "/user/transaction", component: Transaction, layout: DefaultLayout }
 ];
 export { publicRoutes };
