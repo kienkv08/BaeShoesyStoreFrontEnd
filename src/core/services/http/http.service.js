@@ -157,7 +157,7 @@ class _HttpService {
         const message =
           (error === null || error === void 0
             ? void 0
-            : error.response.message) || SystemMessage.UNKNOWN_ERROR;
+            : error.response?.message) || SystemMessage.UNKNOWN_ERROR;
         console.log(error);
         toast.error(message);
 

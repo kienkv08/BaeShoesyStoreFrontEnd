@@ -8,4 +8,8 @@ const getProducts = async (data) => {
   return HttpService.post("/products/", { body: { ...data } });
 };
 
-export { createProduct, getProducts };
+const getProductById = async (id) => {
+  return HttpService.get("/products/" + id);
+};
+
+export { createProduct, getProducts, getProductById };

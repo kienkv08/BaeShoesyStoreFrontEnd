@@ -20,7 +20,7 @@ const PostPage = () => {
         size: 10,
         page: 1,
       },
-      populates: ["images"],
+      populates: ["category"],
     };
     subscribeOnce(getProducts(params), (res) => {
       if (!res) return;
@@ -87,7 +87,7 @@ const PostPage = () => {
           <div className="flex flex-wrap -mx-3 justify-center">
             <div className="w-full px-3 mb-6 text-xl">Posts</div>
             {products.map((p, index) => (
-              <CardProduct product={p} />
+              <CardProduct product={p} key={index} />
             ))}
           </div>
         </Card.Body>

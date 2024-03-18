@@ -1,14 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import DropdownUser from "../dropdown_user/dropdown.user";
 import { Button } from "bootstrap";
+import useObservable from "../../../core/hooks/useObservable.hooks";
+import { getCategory } from "../../../services/public/category.service";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [flyer, setFlyer] = useState(false);
   const [flyerTwo, setFlyerTwo] = useState(false);
+  const [listCate, setListCate] = useState([]);
   let user = localStorage.getItem("user");
-  if (user) user = JSON.parse(user);
+  const { subscribeOnce } = useObservable();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
+  const getAllCategory = () => {
+    subscribeOnce(getCategory(), (res) => {
+      if (!res) return;
+      setListCate(res.data);
+    });
+  };
+  const navigateToStore = (id) => {
+    console.log("run");
+    localStorage.setItem("categoryId", id);
+    navigate("/post");
+  };
+
+  if (user)
+    try {
+      user = JSON.parse(user);
+    } catch (error) {
+      console.error("Error parsing user:", error);
+    }
   return (
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -90,13 +116,19 @@ const Header = () => {
               >
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                    <div className="cursor-pointer -m-3 p-3 flex items-start rounded-lg hover:bg-blue-gray-50">
-                      <div className="ml-4">
-                        <p className="text-base font-medium text-gray-900">
-                          Cate 1
-                        </p>
+                    {listCate.map((cate, index) => (
+                      <div
+                        onClick={() => navigateToStore(cate._id)}
+                        key={index}
+                        className="cursor-pointer -m-3 p-3 flex items-start rounded-lg hover:bg-gray-400"
+                      >
+                        <div className="ml-4">
+                          <p className="text-base font-medium text-gray-900">
+                            {cate.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>

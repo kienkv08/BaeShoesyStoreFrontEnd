@@ -37,7 +37,7 @@ const CarouselComponent = ({
         >
           {slide.img && (
             <img
-              className="d-block w-100 rounded-sm"
+              className="d-block w-100 rounded-sm h-[60vh]"
               src={slide.img}
               alt={`Slide ${index + 1}`}
             />

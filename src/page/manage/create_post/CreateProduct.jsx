@@ -83,7 +83,7 @@ const CreateProduct = () => {
       toast("The auction start time must be smaller than the end time!");
       return;
     }
-
+    let user = localStorage.getItem("user");
     const product = {
       productName,
       title,
@@ -95,6 +95,7 @@ const CreateProduct = () => {
       price,
       description,
       images: [...images],
+      ...(user && { created_by: JSON.parse(user)._id }),
       ...(cate && { category: cate }),
     };
     subscribeOnce(createProduct(product), (res) => {

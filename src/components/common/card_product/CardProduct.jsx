@@ -22,6 +22,14 @@ const CardProduct = ({
     };
     return date.toLocaleString("en-US", options);
   };
+  const formatPrice = (price) => {
+    if (!price) return;
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "VND",
+      minimumFractionDigits: 0,
+    }).format(price);
+  };
   return (
     <Card
       className={customClass}
@@ -43,10 +51,26 @@ const CardProduct = ({
       />
       <Card.Body className="hover-scale text-base">
         <Card.Title>{product?.title}</Card.Title>
-        <Card.Text>{product?.subTitle}</Card.Text>
-        <Card.Text>Price: {product?.price}&nbsp; VND</Card.Text>
-        <Card.Text>Address: {product?.address}</Card.Text>
-        <Card.Text>Time start: {formatTimestamp(product?.timeStart)}</Card.Text>
+        <Card.Text>
+          Name: {product?.productName}
+          <br />
+          Category: {product?.category?.name}
+          <br />
+          <span className="text-pretty text-base font-medium">
+            {formatPrice(product?.price)}&nbsp;-&nbsp;
+            {product?.maxPrice !== 0 ? (
+              <span>{formatPrice(product?.maxPrice)}}&nbsp; (VND)</span>
+            ) : (
+              <>
+                <span>Not limited (VND)</span>
+              </>
+            )}
+          </span>
+          <br />
+          Address: {product?.address}
+          <br />
+          Time start: {formatTimestamp(product?.timeStart)}
+        </Card.Text>
       </Card.Body>
     </Card>
   );
