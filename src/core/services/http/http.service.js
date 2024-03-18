@@ -157,7 +157,7 @@ class _HttpService {
         const message =
           (error === null || error === void 0
             ? void 0
-            : error.response.message) || SystemMessage.UNKNOWN_ERROR;
+            : error.response?.message) || SystemMessage.UNKNOWN_ERROR;
         console.log(error);
         toast.error(message);
 
@@ -199,7 +199,7 @@ class _HttpService {
   }
 
   handleResponse(ajaxResponse) {
-    return ajaxResponse.response.result.data;
+    return ajaxResponse.response.result;
   }
 
   resolveUri(uri) {
@@ -239,11 +239,7 @@ class _HttpService {
   }
 
   getAccessToken() {
-    // return (
-    //   getCookie(localStorageKeys.USER_TOKEN) ||
-    //   StorageService.get(localStorageKeys.USER_TOKEN) ||
-    //   StorageService.getSession(localStorageKeys.USER_TOKEN)
-    // );
+    return localStorage.getItem("accessToken");
   }
 }
 

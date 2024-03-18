@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const DropdownUser = ({ user }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const navigate = useNavigate();
   //   useEffect(() => {
   //     const clickHandler = ({ target }: MouseEvent) => {
   //       if (!dropdown.current) return;
@@ -25,7 +26,9 @@ export const DropdownUser = ({ user }) => {
   //   });
   //   if (!user) return;
   const handleLogout = () => {
-    //   LogoutService(dispatch, navigate);
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
+    navigate("/login");
   };
 
   return (
@@ -38,13 +41,13 @@ export const DropdownUser = ({ user }) => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Admin 1
+            {user.username}
           </span>
         </span>
         <span className="inline-block h-12 w-12 overflow-hidden rounded-full">
           <img
             className="h-full w-full object-cover object-center rounded-full"
-            src="hh"
+            src={user.avatar}
             alt="User"
           />
         </span>
@@ -104,10 +107,140 @@ export const DropdownUser = ({ user }) => {
           <li>
             <Link
               onClick={() => setDropdownOpen(!dropdownOpen)}
+              to="/users/profile"
+              className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+            >
+              <svg
+                width="22px"
+                height="22px"
+                viewBox="0 0 1024 1024"
+                class="icon"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000000"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M196.6 311.6h660v129.2l15.8 76.1-15.8 63.7v184.5h-660z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M860.7 444.5h-51.2v128.3h51.2v210.7c0 15.2-12.1 27.5-27.1 27.5h-637c-15 0-27.1-12.3-27.1-27.5V307c0-15.2 12.1-27.5 27.1-27.5h637c15 0 27.1 12.3 27.1 27.5v137.5z m-637-110V756h585.8V334.5H223.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M794.3 304.3l-49.1 13.3-30.6-116.1-430.9 131.2-17.1-49.3 457.2-137.1c14.4-4.3 29.4 4 33.7 18.6 0.1 0.2 0.1 0.5 0.2 0.7l36.6 138.7zM887.8 389.467c15 0 27.1 12.3 27.1 27.5v183.2c0 15.2-12.1 27.5-27.1 27.5H707.1c-64.9 0-117.5-53.3-117.5-119.1s52.6-119.1 117.5-119.1h180.7z m-40.7 55h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7v-100.8c0-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M860.7 444.5h-51.2v128.3h51.2v210.7c0 15.2-12.1 27.5-27.1 27.5h-637c-15 0-27.1-12.3-27.1-27.5V307c0-15.2 12.1-27.5 27.1-27.5h637c15 0 27.1 12.3 27.1 27.5v137.5z m-637-110V756h585.8V334.5H223.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M794.3 304.3l-49.1 13.3-30.6-116.1-430.9 131.2-17.1-49.3 457.2-137.1c14.4-4.3 29.4 4 33.7 18.6 0.1 0.2 0.1 0.5 0.2 0.7l36.6 138.7zM887.8 389.467c15 0 27.1 12.3 27.1 27.5v183.2c0 15.2-12.1 27.5-27.1 27.5H707.1c-64.9 0-117.5-53.3-117.5-119.1s52.6-119.1 117.5-119.1h180.7z m-40.7 55h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7v-100.8c0-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M860.7 444.5h-51.2v128.3h51.2v210.7c0 15.2-12.1 27.5-27.1 27.5h-637c-15 0-27.1-12.3-27.1-27.5V307c0-15.2 12.1-27.5 27.1-27.5h637c15 0 27.1 12.3 27.1 27.5v137.5z m-637-110V756h585.8V334.5H223.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M794.3 304.3l-49.1 13.3-30.6-116.1-430.9 131.2-17.1-49.3 457.2-137.1c14.4-4.3 29.4 4 33.7 18.6 0.1 0.2 0.1 0.5 0.2 0.7l36.6 138.7zM887.8 389.467c15 0 27.1 12.3 27.1 27.5v183.2c0 15.2-12.1 27.5-27.1 27.5H707.1c-64.9 0-117.5-53.3-117.5-119.1s52.6-119.1 117.5-119.1h180.7z m-40.7 55h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7v-100.8c0-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path d="M457.5 280.3l255.2-79.5 24.2 86.8z" fill="#2F2F33" />
+
+                  <path
+                    d="M196.6 311.6h660v129.2l15.8 76.1-15.8 63.7v184.5h-660z"
+                    fill="#FFFFFF"
+                  />
+
+                  <path
+                    d="M860.7 444.5h-51.2v128.3h51.2v210.7c0 15.2-12.1 27.5-27.1 27.5h-637c-15 0-27.1-12.3-27.1-27.5V307c0-15.2 12.1-27.5 27.1-27.5h637c15 0 27.1 12.3 27.1 27.5v137.5z m-637-110V756h585.8V334.5H223.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M794.3 304.3l-49.1 13.3-30.6-116.1-430.9 131.2-17.1-49.3 457.2-137.1c14.4-4.3 29.4 4 33.7 18.6 0.1 0.2 0.1 0.5 0.2 0.7l36.6 138.7zM887.8 389.467c15 0 27.1 12.3 27.1 27.5v183.2c0 15.2-12.1 27.5-27.1 27.5H707.1c-64.9 0-117.5-53.3-117.5-119.1s52.6-119.1 117.5-119.1h180.7z m-40.7 55h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7v-100.8c0-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M860.7 444.5h-51.2v128.3h51.2v210.7c0 15.2-12.1 27.5-27.1 27.5h-637c-15 0-27.1-12.3-27.1-27.5V307c0-15.2 12.1-27.5 27.1-27.5h637c15 0 27.1 12.3 27.1 27.5v137.5z m-637-110V756h585.8V334.5H223.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path
+                    d="M794.3 304.3l-49.1 13.3-30.6-116.1-430.9 131.2-17.1-49.3 457.2-137.1c14.4-4.3 29.4 4 33.7 18.6 0.1 0.2 0.1 0.5 0.2 0.7l36.6 138.7zM887.8 389.467c15 0 27.1 12.3 27.1 27.5v183.2c0 15.2-12.1 27.5-27.1 27.5H707.1c-64.9 0-117.5-53.3-117.5-119.1s52.6-119.1 117.5-119.1h180.7z m-40.7 55h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7v-100.8c0-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#2F2F33"
+                  />
+
+                  <path d="M457.5 280.3l255.2-79.5 24.2 86.8z" fill="#8CAAFF" />
+
+                  <path
+                    d="M847.4 445h-140c-34.9 0-63.2 28.7-63.2 64.1s28.3 64.1 63.2 64.1h140c7.5 0 13.6-6.2 13.6-13.7V458.7c-0.1-7.6-6.1-13.7-13.6-13.7z"
+                    fill="#FFFFFF"
+                  />
+
+                  <path
+                    d="M686.4 506.5a27.1 27.5 0 1 0 54.2 0 27.1 27.5 0 1 0-54.2 0Z"
+                    fill="#2F2F33"
+                  />
+                </g>
+              </svg>
+              My Bag
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => setDropdownOpen(!dropdownOpen)}
               to="/auth/my-order"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
-              {/* <icons.cart className="h-[22px] w-[22px]" /> */}
+              <svg
+                className="fill-current"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                class="icon"
+                version="1.1"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M7.2998 5H22L20 12H8.37675M21 16H9L7 3H4M4 8H2M5 11H2M6 14H2M10 20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19C9.55228 19 10 19.4477 10 20ZM21 20C21 20.5523 20.5523 21 20 21C19.4477 21 19 20.5523 19 20C19 19.4477 19.4477 19 20 19C20.5523 19 21 19.4477 21 20Z"
+                    stroke="#000000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />{" "}
+                </g>
+              </svg>
               My Order
             </Link>
           </li>

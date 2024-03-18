@@ -1,10 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import DropdownUser from "../dropdown_user/dropdown.user";
+import { Button } from "bootstrap";
+import useObservable from "../../../core/hooks/useObservable.hooks";
+import { getCategory } from "../../../services/public/category.service";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [flyer, setFlyer] = useState(false);
   const [flyerTwo, setFlyerTwo] = useState(false);
+  const [listCate, setListCate] = useState([]);
+  let user = localStorage.getItem("user");
+  const { subscribeOnce } = useObservable();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getAllCategory();
+  }, []);
+
+  const getAllCategory = () => {
+    subscribeOnce(getCategory(), (res) => {
+      if (!res) return;
+      setListCate(res.data);
+    });
+  };
+  const navigateToStore = (id) => {
+    console.log("run");
+    localStorage.setItem("categoryId", id);
+    navigate("/post");
+  };
+
+  if (user)
+    try {
+      user = JSON.parse(user);
+    } catch (error) {
+      console.error("Error parsing user:", error);
+    }
   return (
     <div className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -41,10 +71,10 @@ const Header = () => {
           </div>
           <nav className="hidden md:flex space-x-10">
             <Link
-              to="/store"
+              to="/post"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Store
+              Post
             </Link>
             <div className="relative">
               <button
@@ -86,38 +116,60 @@ const Header = () => {
               >
                 <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                   <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                    <div className="cursor-pointer -m-3 p-3 flex items-start rounded-lg hover:bg-blue-gray-50">
-                      <div className="ml-4">
-                        <p className="text-base font-medium text-gray-900">
-                          Cate 1
-                        </p>
+                    {listCate.map((cate, index) => (
+                      <div
+                        onClick={() => navigateToStore(cate._id)}
+                        key={index}
+                        className="cursor-pointer -m-3 p-3 flex items-start rounded-lg hover:bg-gray-400"
+                      >
+                        <div className="ml-4">
+                          <p className="text-base font-medium text-gray-900">
+                            {cate.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
             <Link
-              to="/"
+              to="/About"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
               About Us
             </Link>
             <Link
-              to="/"
+              to="/Contact"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
               Contact me
             </Link>
             <div className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
               <Link
-                to="/dashboard/book-manage"
+                to="/admin"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
                 Dashboard
               </Link>
             </div>
+            {user ? (
+              <>
+                <div className="whitespace-nowrap text-base font-medium hover:text-gray-900">
+                  <button className="w-full px-4 text-lg font-semibold text-white transition-colors duration-300 bg-blue-500 rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-blue-200 focus:ring-4">
+                    <Link
+                      to="/posts/create"
+                      className="text-base font-medium text-white hover:text-gray-900"
+                    >
+                      Create Post
+                    </Link>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
             {/* <div className="relative">
               <button
                 onMouseEnter={() => setShowCart(true)}
@@ -160,9 +212,9 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            {/* {user ? (
+            {user ? (
               <>
-                <DropdownUser />
+                <DropdownUser user={user} />
               </>
             ) : (
               <>
@@ -170,28 +222,16 @@ const Header = () => {
                   to="/login"
                   className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                 >
-                  {t("pageContent.login")}
+                  Login
                 </Link>
                 <Link
                   to="/register"
                   className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                 >
-                  {t("pageContent.register")}
+                  Register
                 </Link>
               </>
-            )} */}
-            <Link
-              to="/login"
-              className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              Register
-            </Link>
+            )}
           </div>
         </div>
       </div>
