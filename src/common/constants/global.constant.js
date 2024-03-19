@@ -63,3 +63,19 @@ export const INITIAL_VALUES = {
     confirmPassword: "",
   },
 };
+
+export const PRICE_PER_PRODUCT = [
+  { postPrice: 500000, price: 0.1 },
+  { postPrice: 1000000, price: 0.05 },
+  { postPrice: 2000000, price: 0.04 },
+  { postPrice: 5000000, price: 0.02 },
+  { postPrice: 10000000, price: 0.01 },
+];
+
+export const PRICE_PER_POST = [
+  { postPrice: 500000, price: 10000 },
+  { postPrice: 1000000, price: 15000 },
+  { postPrice: 2000000, price: 25000 },
+  { postPrice: 5000000, price: 35000 },
+  { postPrice: 10000000, price: 50000 },
+];

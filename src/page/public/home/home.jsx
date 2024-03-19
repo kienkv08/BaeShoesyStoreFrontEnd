@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CarouselComponent from "../../../components/common/carousel/carousel";
 import Card from "react-bootstrap/Card";
 import CardProduct from "../../../components/common/card_product/CardProduct";
 import CardCategory from "../../../components/common/card_categories/CardCategory";
+import useObservable from "../../../core/hooks/useObservable.hooks";
+import { getProducts } from "../../../services/public/product.service";
 
 const Home = () => {
   const carousel = [
@@ -17,6 +19,25 @@ const Home = () => {
       subTitle: "Hello 3",
     },
   ];
+  const [products, setProducts] = useState([]);
+  const { subscribeOnce } = useObservable();
+  useEffect(() => {
+    getAllProductWithoutDelete();
+  }, []);
+
+  const getAllProductWithoutDelete = () => {
+    const params = {
+      pagination: {
+        size: 10,
+        page: 1,
+      },
+      populates: ["category"],
+    };
+    subscribeOnce(getProducts(params), (res) => {
+      if (!res) return;
+      if (res.data) setProducts(res.data);
+    });
+  };
   return (
     <div className="mx-80">
       <Card>
@@ -27,7 +48,7 @@ const Home = () => {
           </div>
         </Card.Body>
       </Card>
-      <Card className="mt-2">
+      {/* <Card className="mt-2">
         <Card.Body>
           {" "}
           <div className="flex flex-wrap -mx-3 justify-center">
@@ -70,17 +91,15 @@ const Home = () => {
             />
           </div>
         </Card.Body>
-      </Card>
+      </Card> */}
       <Card className="mt-2 mb-2">
         <Card.Body>
           {" "}
           <div className="flex flex-wrap -mx-3 justify-center">
-            <div className="w-full px-3 mb-6 text-xl">New posts</div>
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
-            <CardProduct />
+            <div className="w-full px-3 mb-6 text-xl">New Posts</div>
+            {products.map((p, index) => (
+              <CardProduct product={p} key={index} />
+            ))}
           </div>
         </Card.Body>
       </Card>

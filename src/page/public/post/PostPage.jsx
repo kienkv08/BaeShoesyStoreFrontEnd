@@ -37,7 +37,7 @@ const PostPage = () => {
           </div>
         </Card.Body>
       </Card>
-      <Card className="mt-2">
+      {/* <Card className="mt-2">
         <Card.Body>
           {" "}
           <div className="flex flex-wrap -mx-3 justify-center">
@@ -80,7 +80,7 @@ const PostPage = () => {
             />
           </div>
         </Card.Body>
-      </Card>
+      </Card> */}
       <Card className="mt-2 mb-2">
         <Card.Body>
           {" "}
