@@ -37,7 +37,7 @@ const Profit = () => {
   return (
     <Container fluid>
       <Row className="d-flex justify-content-center">
-        <Col xs={10}>
+        <Col xs={6}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart
               data={data}
@@ -53,29 +53,31 @@ const Profit = () => {
             </BarChart>
           </ResponsiveContainer>
         </Col>
+        <Col xs={6}>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={data}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="pv"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
+        </Col>
       </Row>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={data}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="pv"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-        </LineChart>
-      </ResponsiveContainer>
       <Row>
         <Col xs={12}>
-            <CatePieChart/>
+          <CatePieChart />
         </Col>
       </Row>
     </Container>
