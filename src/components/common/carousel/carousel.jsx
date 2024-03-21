@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const CarouselComponent = ({
   classAll = "",
   classSub = "",
-  theme = "dark",
+  theme = "light",
   timeNextSlide = 10000,
   isBorder = false,
   content = [

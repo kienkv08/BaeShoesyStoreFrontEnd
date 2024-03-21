@@ -12,6 +12,7 @@ import useObservable from "../../../core/hooks/useObservable.hooks";
 import { getCategory } from "../../../services/public/category.service";
 import { createProduct } from "../../../services/public/product.service";
 import { PRICE_PER_POST } from "../../../common/constants/global.constant";
+import { updateUser } from "../../../services/authentication/authentication.services";
 
 const CreateProduct = () => {
   const [cate, setCate] = useState("");
@@ -121,6 +122,9 @@ const CreateProduct = () => {
       subscribeOnce(createProduct(product), (res) => {
         if (!res) return;
         toast.success("Create post sucess!");
+        subscribeOnce(updateUser(1, { deAmount: profitTmp }), (res) => {
+          console.log("Payment success!");
+        });
         navigate("/");
       });
     }

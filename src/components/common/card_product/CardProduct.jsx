@@ -10,6 +10,9 @@ const CardProduct = ({
   product = {},
 }) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    auctionOrNot();
+  }, [product]);
   const [conhan, setConhan] = useState(false);
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return;
@@ -38,8 +41,10 @@ const CardProduct = ({
     const now = new Date();
     if (!product.timeStart) return;
     if (
-      Math.floor(new Date(product.timeStart).getTime()) <
-      Math.floor(now.getTime())
+      Math.floor(new Date(product.timeStart).getTime() * 1000) >
+        Math.floor(now.getTime()) &&
+      Math.floor(now.getTime()) <
+        Math.floor(new Date(product.timeEnd).getTime() * 1000)
     ) {
       setConhan(false);
       return;

@@ -70,7 +70,7 @@ const PostPage = () => {
   ) => {
     const params = {
       pagination: {
-        size: 10,
+        size: 8,
         page: p,
         status: 1,
         ...(s && { text: search }),
@@ -85,7 +85,7 @@ const PostPage = () => {
       if (res.data) setProducts(res.data);
       setCurrentPage(res.currentPage);
       setTotal(res.total);
-      setTotalPage(Math.ceil(res.total / 10));
+      setTotalPage(Math.ceil(res.total / 8));
     });
   };
   const searchProductWithDebounce = (value) => {
