@@ -1,7 +1,7 @@
 import DefaultLayout from "../components/layout/default/default.layout";
 import Login from "../page/authentication/login/login";
 import Register from "../page/authentication/register/register";
-import ChangePassword from "../page/changepassword/changepassword";
+// import ChangePassword from "../page/changepassword/changepassword";
 import Demo from "../page/demo/demo";
 import Home from "../page/public/home/home";
 import PostPage from "../page/public/post/PostPage";
@@ -18,30 +18,27 @@ import Policy from "../page/public/policyPage/PolicyPage";
 import CreateProduct from "../page/manage/create_post/CreateProduct";
 import UserProfilePage from "../page/authentication/profile/UserProfilePage";
 import Success from "../page/authentication/payment/Success";
+import PostReview from "../page/admin/postReview/PostReview";
+import MyOrder from "../page/authentication/myorder/MyOrder";
 import Profit from "../page/authentication/profit/Profit";
 import Transaction from "../page/authentication/profit/Transaction";
 // import AboutUs from "../page/public/aboutUS/AboutUsPage";
 const publicRoutes = [
-  { path: "/register", component: Register, layout: DefaultLayout },
+  {
+    path: "/register",
+    component: Register,
+    layout: DefaultLayout,
+    isAuth: true,
+  },
   { path: "/demo", component: Demo, layout: DefaultLayout },
-  { path: "/login", component: Login, layout: DefaultLayout },
+  { path: "/login", component: Login, layout: DefaultLayout, isAuth: true },
   { path: "/", component: Home, layout: DefaultLayout },
   { path: "/post", component: PostPage, layout: DefaultLayout },
+  { path: "/order", component: MyOrder, layout: DefaultLayout },
   {
     path: "/product-detail/:id",
     component: ProductDetail,
     layout: DefaultLayout,
-  },
-  { path: "/admin", component: AdminHome, layout: AdminLayout },
-  {
-    path: "/admin/manage-posts",
-    component: AdminPostManagement,
-    layout: AdminLayout,
-  },
-  {
-    path: "/admin/manage-accounts",
-    component: AdminAccountManagement,
-    layout: AdminLayout,
   },
   { path: "/userprofile", component: UserProfile, layout: DefaultLayout },
   { path: "/auction/:id", component: Auction, layout: DefaultLayout },
@@ -56,4 +53,19 @@ const publicRoutes = [
   { path: "/user/profit", component: Profit, layout: DefaultLayout },
   { path: "/transaction", component: Transaction, layout: DefaultLayout }
 ];
-export { publicRoutes };
+
+const adminRoutes = [
+  { path: "/admin", component: AdminHome, layout: AdminLayout },
+  { path: "/admin/post-review", component: PostReview, layout: DefaultLayout },
+  {
+    path: "/admin/manage-posts",
+    component: AdminPostManagement,
+    layout: AdminLayout,
+  },
+  {
+    path: "/admin/manage-accounts",
+    component: AdminAccountManagement,
+    layout: AdminLayout,
+  },
+];
+export { publicRoutes, adminRoutes };

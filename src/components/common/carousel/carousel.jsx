@@ -1,10 +1,11 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
+import { useNavigate } from "react-router-dom";
 
 const CarouselComponent = ({
   classAll = "",
   classSub = "",
-  theme = "dark",
+  theme = "light",
   timeNextSlide = 10000,
   isBorder = false,
   content = [
@@ -26,6 +27,7 @@ const CarouselComponent = ({
     },
   ],
 }) => {
+  const navigate = useNavigate();
   classAll = isBorder ? classAll + " border border-primary " : classAll;
   return (
     <Carousel className={`${classAll}`} data-bs-theme={theme}>
@@ -33,11 +35,14 @@ const CarouselComponent = ({
         <Carousel.Item
           key={index}
           interval={timeNextSlide}
-          className={classSub}
+          className={`cursor-pointer ${classSub}`}
+          onDoubleClick={() =>
+            navigate("/product-detail/" + (slide.link ? slide.link : ""))
+          }
         >
           {slide.img && (
             <img
-              className="d-block w-100 rounded-sm h-[60vh]"
+              className="d-block w-100 rounded-sm h-[60vh] object-cover"
               src={slide.img}
               alt={`Slide ${index + 1}`}
             />

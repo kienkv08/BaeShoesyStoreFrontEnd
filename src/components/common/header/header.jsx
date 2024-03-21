@@ -146,14 +146,18 @@ const Header = () => {
             >
               Contact me
             </Link>
-            <div className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-              <Link
-                to="/admin"
-                className="text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                Dashboard
-              </Link>
-            </div>
+            {user && user.role == 1 ? (
+              <div className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                <Link
+                  to="/admin"
+                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                >
+                  Dashboard
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )}
             {user ? (
               <>
                 <div className="whitespace-nowrap text-base font-medium hover:text-gray-900">
@@ -166,6 +170,20 @@ const Header = () => {
                     </Link>
                   </button>
                 </div>
+                {user.role == 1 ? (
+                  <div className="whitespace-nowrap text-base font-medium hover:text-gray-900">
+                    <button className="w-full px-4 text-lg font-semibold text-white transition-colors duration-300 bg-yellow-500 rounded-md shadow hover:bg-yellow-600 focus:outline-none focus:ring-blue-200 focus:ring-4">
+                      <Link
+                        to="/admin/post-review"
+                        className="text-base font-medium text-white hover:text-gray-900"
+                      >
+                        Review posts
+                      </Link>
+                    </button>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </>
             ) : (
               <></>

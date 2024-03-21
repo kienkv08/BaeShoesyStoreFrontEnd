@@ -27,9 +27,7 @@ const Success = () => {
         if (res) {
           console.log(amount);
           toast("Payment success!");
-          subscribeOnce(updateUser(1, { amount: amount }), (resp) => {
-            console.log(resp);
-          });
+          subscribeOnce(updateUser(1, { amount: amount }), (resp) => {});
         }
       }
     );

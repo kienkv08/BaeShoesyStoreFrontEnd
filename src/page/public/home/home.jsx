@@ -7,7 +7,7 @@ import useObservable from "../../../core/hooks/useObservable.hooks";
 import { getProducts } from "../../../services/public/product.service";
 
 const Home = () => {
-  const carousel = [
+  let carousel = [
     {
       img: "https://pubcdn.ivymoda.com/files/news/2023/08/06/bf8a7d8755e486feebecda9c6913f7eb.png",
       title: "Hello",
@@ -20,16 +20,45 @@ const Home = () => {
     },
   ];
   const [products, setProducts] = useState([]);
+  const [actives, setActives] = useState([]);
+  const [carouselList, setCarouselList] = useState([]);
   const { subscribeOnce } = useObservable();
   useEffect(() => {
     getAllProductWithoutDelete();
+    getPostActive();
   }, []);
+
+  const getPostActive = () => {
+    const param = {
+      pagination: {
+        size: 8,
+        page: 1,
+        status: 1,
+        now: Math.floor(new Date().getTime() / 1000),
+      },
+      populates: ["category"],
+    };
+    subscribeOnce(getProducts(param), (res) => {
+      if (!res) return;
+      if (res.data) setActives(res.data);
+      carousel = [];
+      res.data.forEach((p) => {
+        carousel.push({
+          img: p.images[0] ? p.images[0].url : "",
+          title: p.title,
+          link: p._id,
+        });
+      });
+      setCarouselList(carousel);
+    });
+  };
 
   const getAllProductWithoutDelete = () => {
     const params = {
       pagination: {
-        size: 10,
+        size: 8,
         page: 1,
+        status: 1,
       },
       populates: ["category"],
     };
@@ -44,7 +73,7 @@ const Home = () => {
         <Card.Body>
           {" "}
           <div className="flex flex-col">
-            <CarouselComponent classSub={"h-[25vh]"} content={carousel} />
+            <CarouselComponent classSub={"h-[35vh]"} content={carouselList} />
           </div>
         </Card.Body>
       </Card>
