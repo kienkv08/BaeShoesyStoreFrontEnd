@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import useObservable from "../../../core/hooks/useObservable.hooks";
 import { getCategory } from "../../../services/public/category.service";
 import { createProduct } from "../../../services/public/product.service";
+import { PRICE_PER_POST } from "../../../common/constants/global.constant";
 
 const CreateProduct = () => {
   const [cate, setCate] = useState("");
@@ -24,10 +25,12 @@ const CreateProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
+  const [profit, setProfit] = useState(0);
   const [listCate, setListCate] = useState([]);
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
   const { subscribeOnce } = useObservable();
+  const pricePerPost = PRICE_PER_POST;
 
   useEffect(() => {
     getAllCategory();
@@ -54,36 +57,36 @@ const CreateProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!cate) {
-      toast("Please select category");
-      return;
-    }
-    if (!timeStart) {
-      toast("Please select auction day start");
-      return;
-    }
-    if (!timeEnd) {
-      toast("Please select auction day end");
-      return;
-    }
-    const now = new Date();
-    now.setDate(now.getDate() + 1);
-    if (
-      Math.floor(new Date(timeStart).getTime() / 1000) <
-      now.getTime() / 1000
-    ) {
-      toast(
-        "The auction start time must be greater than now at least one day!"
-      );
-      return;
-    }
-    if (
-      Math.floor(new Date(timeStart).getTime() / 1000) >
-      Math.floor(new Date(timeEnd).getTime() / 1000)
-    ) {
-      toast("The auction start time must be smaller than the end time!");
-      return;
-    }
+    // if (!cate) {
+    //   toast("Please select category");
+    //   return;
+    // }
+    // if (!timeStart) {
+    //   toast("Please select auction day start");
+    //   return;
+    // }
+    // if (!timeEnd) {
+    //   toast("Please select auction day end");
+    //   return;
+    // }
+    // const now = new Date();
+    // now.setDate(now.getDate() + 1);
+    // if (
+    //   Math.floor(new Date(timeStart).getTime() / 1000) <
+    //   now.getTime() / 1000
+    // ) {
+    //   toast(
+    //     "The auction start time must be greater than now at least one day!"
+    //   );
+    //   return;
+    // }
+    // if (
+    //   Math.floor(new Date(timeStart).getTime() / 1000) >
+    //   Math.floor(new Date(timeEnd).getTime() / 1000)
+    // ) {
+    //   toast("The auction start time must be smaller than the end time!");
+    //   return;
+    // }
     let user = localStorage.getItem("user");
     const product = {
       productName,
@@ -100,10 +103,27 @@ const CreateProduct = () => {
       ...(user && { created_by: JSON.parse(user)._id }),
       ...(cate && { category: cate }),
     };
-    subscribeOnce(createProduct(product), (res) => {
-      toast.success("Create post sucess!");
-      navigate("/");
+    checkPrice(product);
+  };
+
+  const checkPrice = (product) => {
+    let profitTmp = 50000;
+    pricePerPost.some((p, index) => {
+      if (parseFloat(price) < p.postPrice) {
+        profitTmp = p.price;
+        return true;
+      }
+      return false;
     });
+    setProfit(profitTmp);
+    product.profit = profitTmp;
+    if (window.confirm(`You need to pay ${profitTmp} (VND) for this post`)) {
+      subscribeOnce(createProduct(product), (res) => {
+        if (!res) return;
+        toast.success("Create post sucess!");
+        navigate("/");
+      });
+    }
   };
 
   const setCaption = (value, index) => {
@@ -179,7 +199,7 @@ const CreateProduct = () => {
                   <Form.Group className="mb-3" controlId="formBasicprice">
                     <Form.Control
                       type="number"
-                      placeholder="Enter price"
+                      placeholder="Enter max price"
                       onChange={(event) => setMaxPrice(event.target.value)}
                     />
                   </Form.Group>

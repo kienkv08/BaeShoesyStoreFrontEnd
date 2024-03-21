@@ -81,8 +81,10 @@ const ProductDetail = () => {
     const now = new Date();
     if (!product.timeStart) return;
     if (
-      Math.floor(new Date(product.timeStart).getTime() / 1000) >
-      now.getTime() / 1000
+      Math.floor(new Date(product.timeStart).getTime() * 1000) >
+        Math.floor(now.getTime()) &&
+      Math.floor(now.getTime()) <
+        Math.floor(new Date(product.timeEnd).getTime() * 1000)
     ) {
       toast.warn("It's not time yet!");
       return;

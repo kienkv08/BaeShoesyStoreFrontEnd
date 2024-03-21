@@ -29,7 +29,8 @@ const Login = () => {
       localStorage.setItem("accessToken", res.accessToken);
       localStorage.setItem("user", JSON.stringify(res.user));
       toast("Login successfully!");
-      navigate("/");
+      window.location.href = "/";
+      // navigate("/");
     });
   };
 

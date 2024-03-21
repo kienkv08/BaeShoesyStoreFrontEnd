@@ -166,6 +166,16 @@ const Header = () => {
                     </Link>
                   </button>
                 </div>
+                <div className="whitespace-nowrap text-base font-medium hover:text-gray-900">
+                  <button className="w-full px-4 text-lg font-semibold text-white transition-colors duration-300 bg-yellow-500 rounded-md shadow hover:bg-yellow-600 focus:outline-none focus:ring-blue-200 focus:ring-4">
+                    <Link
+                      to="/admin/post-review"
+                      className="text-base font-medium text-white hover:text-gray-900"
+                    >
+                      Review posts
+                    </Link>
+                  </button>
+                </div>
               </>
             ) : (
               <></>

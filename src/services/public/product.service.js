@@ -12,4 +12,8 @@ const getProductById = async (id) => {
   return HttpService.get("/products/" + id);
 };
 
-export { createProduct, getProducts, getProductById };
+const updateProduct = async (id, data) => {
+  return HttpService.post("/products/update/" + id, { body: { ...data } });
+};
+
+export { createProduct, getProducts, getProductById, updateProduct };

@@ -6,17 +6,25 @@ import { useParams } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import useObservable from "../../../core/hooks/useObservable.hooks";
-import { getProductById } from "../../../services/public/product.service";
+import {
+  getProductById,
+  updateProduct,
+} from "../../../services/public/product.service";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
 import CountdownTimer from "../../../components/common/countdownTimer/CountdownTimer";
-import { getUserById } from "../../../services/authentication/authentication.services";
+import {
+  getUserById,
+  updateUser,
+} from "../../../services/authentication/authentication.services";
 import {
   create,
   getByProductId,
 } from "../../../services/public/auctionHistory.service";
 import socket from "../../../lib/socket.lib";
+import { PRICE_PER_PRODUCT } from "../../../common/constants/global.constant";
+import { createOrder } from "../../../services/transaction/order.service";
 
 const Auction = () => {
   const { id } = useParams();
@@ -24,15 +32,18 @@ const Auction = () => {
   const [images, setImages] = useState([]);
   const [bid, setBid] = useState(0);
   const [userId, setUserId] = useState("");
+  const [user, setUser] = useState({});
   const { subscribeOnce } = useObservable();
   const [highest, setHighest] = useState(0);
   const [highestUser, setHighestUser] = useState(0);
+  const [profit, setProfit] = useState(0);
   const navigate = useNavigate();
   let userLocal = localStorage.getItem("user");
   const getUser = (userLocal) => {
     subscribeOnce(getUserById(userLocal), (res) => {
       if (!res) return;
       setUserId(res._id);
+      setUser(res);
     });
   };
   useEffect(() => {
@@ -143,6 +154,43 @@ const Auction = () => {
       socket.emit("newBid", { hello: "dcm" });
     });
   };
+  const pricePerProduct = PRICE_PER_PRODUCT;
+
+  const handleBuyOutright = () => {
+    let profitTmp = 0.01;
+    if (!product.maxPrice) return;
+    pricePerProduct.some((p, index) => {
+      if (parseFloat(product.maxPrice) < p.postPrice) {
+        profitTmp = p.price;
+        return true;
+      }
+      return false;
+    });
+    setProfit(profitTmp);
+    const data = {
+      profit: Math.floor(product.maxPrice * profitTmp),
+      productPrice: product.maxPrice,
+      email: user.email,
+      phone: user.phone ? user.phone : "123",
+      address: user.address ? user.address : "Ha Noi",
+      productId: product._id,
+      userId: userId,
+    };
+    if (window.confirm(`You need to deposit 30% for this product`)) {
+      subscribeOnce(createOrder(data), (res) => {
+        if (!res) return;
+        toast.success("Buy success!");
+        subscribeOnce(
+          updateUser(1, { deAmount: Math.floor(product.maxPrice * 0.3) }),
+          (resp) => {}
+        );
+        subscribeOnce(updateProduct(product._id, { status: 3 }), (res) => {
+          if (!res) return;
+        });
+        navigate("/");
+      });
+    }
+  };
   return (
     <div className="mx-80">
       <Card>
@@ -183,7 +231,12 @@ const Auction = () => {
                             (VND)
                           </Row>
                           <Row>
-                            <Button variant="warning">Buy outright</Button>
+                            <Button
+                              variant="warning"
+                              onClick={() => handleBuyOutright()}
+                            >
+                              Buy outright
+                            </Button>
                           </Row>
                         </>
                       ) : (

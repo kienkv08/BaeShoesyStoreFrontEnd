@@ -28,7 +28,7 @@ export const DropdownUser = ({ user }) => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("accessToken");
-    navigate("/login");
+    window.location.href = "/login";
   };
 
   return (
@@ -81,7 +81,7 @@ export const DropdownUser = ({ user }) => {
           <li>
             <Link
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              to="/auth/profile"
+              to="/users/profile"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -209,7 +209,7 @@ export const DropdownUser = ({ user }) => {
           <li>
             <Link
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              to="/auth/my-order"
+              to="/order"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg

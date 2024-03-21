@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import "./CardProduct.css";
 import { Link, useNavigate } from "react-router-dom";
+import { BsFillFileEarmarkSpreadsheetFill } from "react-icons/bs";
 
 const CardProduct = ({
-  customClass = "w-full 2xl:w-[24%] px-3 mb-3 mr-3 hover-card",
+  customClass = "w-full 2xl:w-[24%] px-3 mb-3 mr-3 hover-card relative",
   product = {},
 }) => {
   const navigate = useNavigate();
+  const [conhan, setConhan] = useState(false);
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return;
     timestamp = timestamp * 1000;
@@ -30,11 +33,34 @@ const CardProduct = ({
       minimumFractionDigits: 0,
     }).format(price);
   };
+
+  const auctionOrNot = () => {
+    const now = new Date();
+    if (!product.timeStart) return;
+    if (
+      Math.floor(new Date(product.timeStart).getTime()) <
+      Math.floor(now.getTime())
+    ) {
+      setConhan(false);
+      return;
+    }
+    setConhan(true);
+  };
+  useEffect(() => {
+    auctionOrNot();
+  }, []);
   return (
     <Card
       className={customClass}
       onClick={() => navigate("/product-detail/" + product?._id)}
     >
+      <span className="absolute top-0 right-0">
+        {conhan ? (
+          <Button variant="warning">Active</Button>
+        ) : (
+          <Button>Unactive</Button>
+        )}
+      </span>
       <Card.Img
         className="hover-scale"
         style={{
@@ -49,7 +75,7 @@ const CardProduct = ({
             : ""
         }
       />
-      <Card.Body className="hover-scale text-base">
+      <Card.Body className="hover-scale text-base relative">
         <Card.Title>{product?.title}</Card.Title>
         <Card.Text>
           Name: {product?.productName}
@@ -59,7 +85,7 @@ const CardProduct = ({
           <span className="text-pretty text-base font-medium">
             {formatPrice(product?.price)}&nbsp;-&nbsp;
             {product?.maxPrice !== 0 ? (
-              <span>{formatPrice(product?.maxPrice)}}&nbsp; (VND)</span>
+              <span>{formatPrice(product?.maxPrice)}&nbsp; (VND)</span>
             ) : (
               <>
                 <span>Not limited (VND)</span>
