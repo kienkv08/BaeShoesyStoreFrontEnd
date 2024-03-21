@@ -23,6 +23,7 @@ const CreateProduct = () => {
   const [timeEnd, setTimeEnd] = useState(0);
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
   const [listCate, setListCate] = useState([]);
   const [images, setImages] = useState([]);
   const navigate = useNavigate();
@@ -93,6 +94,7 @@ const CreateProduct = () => {
       phone: phone.toString(),
       address,
       price,
+      maxPrice,
       description,
       images: [...images],
       ...(user && { created_by: JSON.parse(user)._id }),
@@ -172,6 +174,13 @@ const CreateProduct = () => {
                       type="number"
                       placeholder="Enter price"
                       onChange={(event) => setPrice(event.target.value)}
+                    />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicprice">
+                    <Form.Control
+                      type="number"
+                      placeholder="Enter price"
+                      onChange={(event) => setMaxPrice(event.target.value)}
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBasicdescription">

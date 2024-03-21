@@ -81,13 +81,13 @@ const ProductDetail = () => {
     const now = new Date();
     if (!product.timeStart) return;
     if (
-      Math.floor(new Date(product.timeStart).getTime() / 1000) <
+      Math.floor(new Date(product.timeStart).getTime() / 1000) >
       now.getTime() / 1000
     ) {
       toast.warn("It's not time yet!");
       return;
     }
-    navigate("/");
+    navigate("/auction/" + id);
   };
   return (
     <div className="mx-80">
@@ -127,7 +127,7 @@ const ProductDetail = () => {
                       {formatPrice(product?.price)}&nbsp;-&nbsp;
                       {product?.maxPrice !== 0 ? (
                         <span>
-                          {formatPrice(product?.maxPrice)}}&nbsp; (VND)
+                          {formatPrice(product?.maxPrice)}&nbsp; (VND)
                         </span>
                       ) : (
                         <>

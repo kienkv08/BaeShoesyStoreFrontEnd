@@ -6,4 +6,10 @@ const createPaymentService = async (data) => {
   });
 };
 
-export { createPaymentService };
+const createRechargeHistory = async (data) => {
+  return HttpService.post("/payment/create", {
+    body: { ...data },
+  });
+};
+
+export { createPaymentService, createRechargeHistory };

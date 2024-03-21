@@ -44,7 +44,7 @@ const publicRoutes = [
     layout: AdminLayout,
   },
   { path: "/userprofile", component: UserProfile, layout: DefaultLayout },
-  { path: "/auction", component: Auction, layout: Auction },
+  { path: "/auction/:id", component: Auction, layout: DefaultLayout },
   { path: "/orderhistory", component: OrderHistory, layout: OrderHistory },
   // { path: "/About", component: AboutUs, layout: DefaultLayout },
   { path: "/Contact", component: Contact, layout: DefaultLayout },
