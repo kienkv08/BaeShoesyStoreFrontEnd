@@ -47,7 +47,7 @@ const Transaction = () => {
     <Container fluid>
       <Row>
         <Col xs={12} className="d-flex justify-content-center">
-          <h4 style={{ margin: "40px auto" }}>Your Transaction</h4>
+          <h4 style={{ margin: "40px auto", color:'black' }}>Your Transaction</h4>
         </Col>
       </Row>
       <Row>
@@ -55,8 +55,8 @@ const Transaction = () => {
           <Table striped style={{ width: "90%" }}>
             <thead>
               <th>TransactionID</th>
-              <th>userID</th>
-              <th>PostID</th>
+              <th>Order</th>
+              <th>Post</th>
               <th>Create At</th>
               <th>Total Amount</th>
             </thead>
@@ -67,10 +67,10 @@ const Transaction = () => {
                     return (
                       <tr key={index}>
                         <td>{list?._id}</td>
-                        <td>{list?.userId}</td>
+                        <td>{list?.order}</td>
                         <td>{list?.order}</td>
                         <td>{formatCreatedAt(list?.createdAt)}</td>
-                        <td>{list?.totalAmount}</td>
+                        <td>₫{list?.totalAmount}</td>
                       </tr>
                     );
                   }
