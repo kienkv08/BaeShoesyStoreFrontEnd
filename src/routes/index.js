@@ -53,7 +53,7 @@ const publicRoutes = [
   { path: "/users/profile", component: UserProfilePage, layout: DefaultLayout },
   { path: "/payment/success", component: Success, layout: DefaultLayout },
   //profit
-  { path: "/user/profit", component: Profit, layout: DefaultLayout },
-  { path: "/user/transaction", component: Transaction, layout: DefaultLayout }
+  { path: "/profit", component: Profit, layout: DefaultLayout },
+  { path: "/transaction", component: Transaction, layout: DefaultLayout }
 ];
 export { publicRoutes };
