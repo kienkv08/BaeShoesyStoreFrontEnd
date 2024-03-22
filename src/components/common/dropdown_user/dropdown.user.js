@@ -3,7 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const DropdownUser = ({ user }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  let userRole = localStorage.getItem("user");
+  const userData = JSON.parse(userRole);
+  const role = userData?.role;
   const trigger = useRef(null);
   const dropdown = useRef(null);
   const navigate = useNavigate();
@@ -52,9 +54,8 @@ export const DropdownUser = ({ user }) => {
           />
         </span>
         <svg
-          className={`hidden fill-current sm:block ${
-            dropdownOpen ? "rotate-180" : ""
-          }`}
+          className={`hidden fill-current sm:block ${dropdownOpen ? "rotate-180" : ""
+            }`}
           width="12"
           height="8"
           viewBox="0 0 12 8"
@@ -73,9 +74,8 @@ export const DropdownUser = ({ user }) => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`z-50 absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${
-          dropdownOpen === true ? "block" : "hidden"
-        }`}
+        className={`z-50 absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark ${dropdownOpen === true ? "block" : "hidden"
+          }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
@@ -271,8 +271,9 @@ export const DropdownUser = ({ user }) => {
           </li>
           <li>
             <Link
+              style={{ display: role === 1 ? "" : "none" }}
               onClick={() => setDropdownOpen(!dropdownOpen)}
-              to="/user/profit"
+              to="/admin/profit"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg

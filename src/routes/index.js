@@ -49,9 +49,6 @@ const publicRoutes = [
   { path: "/posts/create", component: CreateProduct, layout: DefaultLayout },
   { path: "/users/profile", component: UserProfilePage, layout: DefaultLayout },
   { path: "/payment/success", component: Success, layout: DefaultLayout },
-  //profit
-  { path: "/user/profit", component: Profit, layout: DefaultLayout },
-  { path: "/transaction", component: Transaction, layout: DefaultLayout }
 ];
 
 const adminRoutes = [
@@ -67,5 +64,8 @@ const adminRoutes = [
     component: AdminAccountManagement,
     layout: AdminLayout,
   },
+  //profit
+  { path: "/admin/profit", component: Profit, layout: DefaultLayout },
+  { path: "/transaction", component: Transaction, layout: DefaultLayout }
 ];
 export { publicRoutes, adminRoutes };

@@ -6,10 +6,10 @@ import { getTransaction } from "../../../services/public/transaction.service";
 const Transaction = () => {
   const { subscribeOnce } = useObservable();
   const [listTrans, setListTrans] = useState([]);
-  let user = localStorage.getItem("user");
-    const userData = JSON.parse(user);
-    const userId = userData?._id;
-    console.log(userId)
+  // let user = localStorage.getItem("user");
+  //   const userData = JSON.parse(user);
+  //   const userId = userData?._id;
+  //   console.log(userId)
   useEffect(() => {
     getAllTransaction();
   }, []);
@@ -62,9 +62,7 @@ const Transaction = () => {
             </thead>
             <tbody>
               {listTrans &&
-                listTrans.map((list, index) => {
-                  if (list?.userId === userId) {
-                    return (
+                listTrans.map((list, index) => 
                       <tr key={index}>
                         <td>{list?._id}</td>
                         <td>{list?.order}</td>
@@ -72,10 +70,7 @@ const Transaction = () => {
                         <td>{formatCreatedAt(list?.createdAt)}</td>
                         <td>₫{list?.totalAmount}</td>
                       </tr>
-                    );
-                  }
-                  return null;
-                })}
+                )}
             </tbody>
           </Table>
         </Col>
